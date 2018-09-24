@@ -1,13 +1,14 @@
 import React from 'react';
-import Weather from './components/Weather'
 import { StyleSheet, Text, View } from 'react-native';
-export default class App extends React.Component {
+export default class Weather extends React.Component {
  doIt = () => {
  console.log("Hello from console")
  }
  render() {
  return (
-    <Weather/>
+ <View style={styles.container}>
+ <Text onPress={this.doIt}>Hello World</Text>
+ </View>
  );
  }
 }
