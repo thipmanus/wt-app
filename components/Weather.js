@@ -7,7 +7,7 @@ export default class Weather extends React.Component {
         super(props);
         this.state = {
         forecast: {
-            main: '-', description: '-', temp: 0
+            main: 'main', description: 'description', temp: 0,
         }
         }
     }
@@ -31,19 +31,39 @@ export default class Weather extends React.Component {
     componentDidMount = () => this.fetchData()
  render() {
  return (
-    <View style={styles.flex}>
+    <View style={styles.container}>
     <ImageBackground source={require('../img/bg.jpeg')} style={styles.backdrop}>
-    <Text style={styles.zipCode}>Zip code is {this.props.zipCode}.</Text>
-    <Forecast {...this.state.forecast} />
+    <View style ={styles.background}>
+        <Text style={styles.zipCode}>Zip code is {this.props.zipCode}.</Text>
+        <Forecast {...this.state.forecast} />
+    </View>
     </ImageBackground>
     </View>
-
- );
- }
+);
 }
-const styles = StyleSheet.create({
-    container: { paddingTop: 25 },
-    backdrop: { width: '100%', height: '100%'},
-    zipCode: {textAlign:'center', color:'#00D084', fontSize:20},
-    flex: {flex: 1,flexDirection: 'column',justifyContent: 'center',alignItems: 'center' },
+}
+ 
+ const styles = StyleSheet.create({
+    container: { 
+        paddingTop: 25,
+        flex: 1, 
+        flexDirection: 'column', 
+        justifyContent: 'flex-end', 
+        alignItems:'flex-start'
+    },
+    backdrop: { 
+        width: '100%',
+        height: '100%',
+    },
+    background : {  
+        backgroundColor : 'black',
+        opacity:0.5,
+        width: '100%',
+        alignItems:'center'
+    },
+    zipCode: {  
+        color:'white',
+        fontSize:30,
+        paddingTop: 20
+    },
 });
