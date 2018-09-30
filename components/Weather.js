@@ -7,7 +7,7 @@ export default class Weather extends React.Component {
         super(props);
         this.state = {
         forecast: {
-            main: 'main', description: 'description', temp: 0,
+            main: '-', description: '-', temp: 0,
         }
         }
     }
@@ -16,23 +16,29 @@ export default class Weather extends React.Component {
         .then((response) => response.json())
         .then((json) => {
         this.setState(
-    {
-    forecast: {
-        main: json.weather[0].main,
-        description: json.weather[0].description,
-        temp: json.main.temp
-    }
-    });
-    })
-    .catch((error) => {
-    console.warn(error);
-    });
+        {
+            forecast: {
+            main: json.weather[0].main,
+            description: json.weather[0].description,
+            temp: json.main.temp
+            }
+        });
+        })
+        .catch((error) => {
+        console.warn(error);
+        });
     }
     componentDidMount = () => this.fetchData()
+    componentDidUpdate = (prevProps) => {
+      if (prevProps.zipCode !== this.props.zipCode) {
+        this.fetchData()
+      }
+    }
+
  render() {
  return (
     <View style={styles.container}>
-    <ImageBackground source={require('../img/bg.jpeg')} style={styles.backdrop}>
+    <ImageBackground source={require('../img/sbg.jpg')} style={styles.backdrop}>
     <View style ={styles.background}>
         <Text style={styles.zipCode}>Zip code is {this.props.zipCode}.</Text>
         <Forecast {...this.state.forecast} />
@@ -45,11 +51,8 @@ export default class Weather extends React.Component {
  
  const styles = StyleSheet.create({
     container: { 
-        paddingTop: 25,
-        flex: 1, 
-        flexDirection: 'column', 
-        justifyContent: 'flex-end', 
-        alignItems:'flex-start'
+        paddingTop: 0,
+        
     },
     backdrop: { 
         width: '100%',
@@ -64,6 +67,5 @@ export default class Weather extends React.Component {
     zipCode: {  
         color:'white',
         fontSize:30,
-        paddingTop: 20
     },
 });
